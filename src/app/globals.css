@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+@theme {
+  --color-forest: #123d27;
+  --color-forest-2: #285b3a;
+  --color-forest-3: #e4ede7;
+  --color-gold: #b28a3a;
+  --color-gold-2: #d4b06a;
+  --color-gold-3: #f3e9d2;
+  --color-ivory: #f7f4ec;
+  --color-ivory-2: #efe9db;
+  --color-charcoal: #171a17;
+  --font-display: "Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-serif: "Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-serif);
+  letter-spacing: -0.01em;
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .btn,
+  .btn-primary,
+  .btn-gold,
+  .btn-outline,
+  .btn-light,
+  .btn-ghost-light {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold uppercase tracking-wide transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply bg-forest text-ivory hover:bg-forest-2;
+  }
+  .btn-gold {
+    @apply bg-gold text-white hover:bg-[#9a7630];
+  }
+  .btn-outline {
+    @apply border border-forest/30 bg-transparent text-forest hover:border-forest hover:bg-forest/5;
+  }
+  .btn-light {
+    @apply bg-ivory text-forest hover:bg-white;
+  }
+  .btn-ghost-light {
+    @apply border border-ivory/40 text-ivory hover:bg-ivory/10;
+  }
+  .btn-sm {
+    @apply px-3 py-2 text-xs;
+  }
+  .card {
+    @apply rounded-xl border border-forest/10 bg-white shadow-[0_1px_2px_rgba(18,61,39,0.04),0_8px_24px_-12px_rgba(18,61,39,0.10)];
+  }
+  .input {
+    @apply w-full rounded-lg border border-forest/20 bg-white px-3.5 py-2.5 text-sm text-charcoal outline-none transition placeholder:text-charcoal/40 focus:border-forest focus:ring-2 focus:ring-forest/15;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wider text-forest/80;
+  }
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+  }
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.22em] text-gold;
+  }
+  .h-section {
+    @apply font-display text-4xl font-semibold leading-[1.05] text-forest sm:text-5xl;
+  }
+  .th {
+    @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-forest/70;
+  }
+  .td {
+    @apply px-4 py-3 text-sm;
+  }
+  .prose-tp p {
+    @apply mb-4 leading-relaxed text-charcoal/80;
+  }
+  .prose-tp h2 {
+    @apply mb-3 mt-8 font-display text-3xl font-semibold text-forest;
+  }
+}
+
+.gold-rule {
+  height: 2px;
+  width: 56px;
+  background: linear-gradient(90deg, var(--color-gold), var(--color-gold-2));
+}
+
+.paper {
+  background-image: radial-gradient(rgba(18, 61, 39, 0.045) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
