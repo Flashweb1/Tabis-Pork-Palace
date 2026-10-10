@@ -12,10 +12,10 @@ export type ProductView = typeof products.$inferSelect & {
 };
 
 const DEFAULT_SETTINGS: Record<string, string> = {
-  whatsapp: "2348000000000",
-  phone: "+234 800 000 0000",
+  whatsapp: "2348130666158",
+  phone: "+234 813 066 6158",
   email: "hello@tabispork.com",
-  address: "Lagos, Nigeria",
+  address: "House 5, Diamond Estate, Esheri-Igando Road Lagos",
   hours: "Mon–Sat 7:00am – 7:00pm",
   bank_name: "",
   bank_account_name: "",

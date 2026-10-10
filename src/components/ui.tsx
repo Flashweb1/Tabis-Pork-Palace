@@ -101,9 +101,11 @@ export function PageHero({
 }) {
   return (
     <section className="relative overflow-hidden bg-forest text-ivory">
-      {image && <Img src={image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-25" />}
+      {image && <Img src={image} alt="" className="kenburns absolute inset-0 h-full w-full object-cover opacity-25" />}
       <div className="absolute inset-0 bg-gradient-to-r from-forest via-forest/90 to-forest/60" />
-      <div className="container-x relative py-14 sm:py-20">
+      <div className="absolute inset-0 bg-[radial-gradient(130%_130%_at_15%_10%,transparent_40%,rgba(6,20,13,0.55)_100%)]" />
+      <div className="grain-layer" aria-hidden />
+      <div className="container-x relative z-[2] py-14 sm:py-20">
         {eyebrow && <p className="eyebrow mb-3 !text-gold-2">{eyebrow}</p>}
         <h1 className="max-w-3xl font-display text-5xl font-semibold leading-[1.02] sm:text-6xl">{title}</h1>
         <div className="gold-rule mt-5" />

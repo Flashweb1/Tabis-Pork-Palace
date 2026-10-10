@@ -119,3 +119,161 @@ h3,
     display: none !important;
   }
 }
+
+:root {
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 180ms;
+  --dur-base: 300ms;
+  --dur-slow: 600ms;
+}
+
+::selection {
+  background: var(--color-gold-3);
+  color: var(--color-forest);
+}
+
+/* Scroll reveal — active only when JS is present (html.js), so content is
+   always visible without JS and for crawlers. */
+.js .reveal {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity var(--dur-slow) var(--ease-premium),
+    transform var(--dur-slow) var(--ease-premium);
+  will-change: opacity, transform;
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Staggered children — animates transform/opacity only, so grid layout is untouched. */
+.js .stagger > * {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition:
+    opacity var(--dur-slow) var(--ease-premium),
+    transform var(--dur-slow) var(--ease-premium);
+  will-change: opacity, transform;
+}
+.js .stagger.is-visible > * {
+  opacity: 1;
+  transform: none;
+}
+.js .stagger.is-visible > *:nth-child(1) { transition-delay: 0ms; }
+.js .stagger.is-visible > *:nth-child(2) { transition-delay: 60ms; }
+.js .stagger.is-visible > *:nth-child(3) { transition-delay: 120ms; }
+.js .stagger.is-visible > *:nth-child(4) { transition-delay: 180ms; }
+.js .stagger.is-visible > *:nth-child(5) { transition-delay: 240ms; }
+.js .stagger.is-visible > *:nth-child(6) { transition-delay: 300ms; }
+.js .stagger.is-visible > *:nth-child(7) { transition-delay: 360ms; }
+.js .stagger.is-visible > *:nth-child(8) { transition-delay: 420ms; }
+
+/* Image entrance */
+.js .img-fade {
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-premium);
+}
+.js .img-fade.is-loaded {
+  opacity: 1;
+}
+
+/* Header condense on scroll */
+.site-header {
+  transition:
+    box-shadow var(--dur-base) var(--ease-premium),
+    background-color var(--dur-base) var(--ease-premium);
+}
+.site-header.is-scrolled {
+  box-shadow: 0 10px 34px -18px rgba(18, 61, 39, 0.4);
+}
+
+/* Route transition */
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.page-enter {
+  animation: page-in var(--dur-base) var(--ease-premium) both;
+}
+
+/* Cart badge pop */
+@keyframes badge-pop {
+  0% { transform: scale(0.5); }
+  60% { transform: scale(1.22); }
+  100% { transform: scale(1); }
+}
+.badge-pop {
+  animation: badge-pop var(--dur-base) var(--ease-premium);
+}
+
+/* Hero Ken Burns */
+@keyframes kenburns {
+  from { transform: scale(1.03) translate3d(0, 0, 0); }
+  to { transform: scale(1.12) translate3d(0, -1.5%, 0); }
+}
+.kenburns {
+  animation: kenburns 24s ease-out forwards;
+}
+
+/* Staged headline rise */
+@keyframes rise {
+  from { opacity: 0; transform: translate3d(0, 26px, 0); }
+  to { opacity: 1; transform: none; }
+}
+.rise {
+  animation: rise 760ms var(--ease-premium) both;
+}
+
+/* Gold sheen sweep on primary CTAs */
+.sheen {
+  position: relative;
+  overflow: hidden;
+}
+.sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 32%, rgba(255, 255, 255, 0.38) 50%, transparent 68%);
+  transform: translateX(-130%);
+  transition: transform 720ms var(--ease-premium);
+}
+.sheen:hover::after {
+  transform: translateX(130%);
+}
+
+/* Film-grain texture for dark sections */
+.grain-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='120'%20height='120'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.8'%20numOctaves='2'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .js .reveal,
+  .js .stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

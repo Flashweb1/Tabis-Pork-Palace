@@ -5,6 +5,7 @@ import { blogPosts, reviews, products } from "@/db/schema";
 import { Icon } from "@/components/Icon";
 import { Img } from "@/components/Img";
 import { ProductCard } from "@/components/ProductCard";
+import { Reveal } from "@/components/Reveal";
 import { SectionHeading, Stars } from "@/components/ui";
 import { CUTS } from "@/lib/guide";
 import { dateShort, naira } from "@/lib/format";
@@ -45,41 +46,72 @@ export default async function HomePage() {
       />
       {/* HERO */}
       <section className="relative overflow-hidden bg-forest text-ivory">
-        <Img src="https://images.pexels.com/photos/5774154/pexels-photo-5774154.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1800" alt="Fresh premium pork cuts" className="absolute inset-0 h-full w-full object-cover opacity-40" />
+        <Img src="https://images.pexels.com/photos/5774154/pexels-photo-5774154.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1800" alt="Fresh premium pork cuts" className="kenburns absolute inset-0 h-full w-full object-cover opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-r from-forest via-forest/85 to-forest/30" />
-        <div className="container-x relative grid min-h-[560px] items-center py-16 sm:py-24 lg:min-h-[640px]">
+        <div className="absolute inset-0 bg-[radial-gradient(120%_120%_at_18%_18%,transparent_35%,rgba(6,20,13,0.6)_100%)]" />
+        <div className="grain-layer" aria-hidden />
+        <div className="container-x relative z-[2] grid min-h-[560px] items-center py-16 sm:py-24 lg:min-h-[640px]">
           <div className="max-w-2xl">
-            <p className="eyebrow mb-5 !text-gold-2">Tabis Pork Palace</p>
-            <h1 className="font-display text-[3.4rem] font-semibold leading-[0.98] sm:text-7xl">
-              Premium Pork.
-              <br />
-              <span className="text-gold-2">Fresh From Source to Table.</span>
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ivory/85">
-              Shop quality pork cuts, family packs, bulk orders and whole pigs — carefully sourced, professionally handled and delivered to your doorstep.
+            <p className="eyebrow rise mb-5 !text-gold-2" style={{ animationDelay: "60ms" }}>
+              Tabis Pork Palace · Est. in Lagos
             </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Link href="/shop" className="btn-gold !px-8 !py-4">Shop Pork</Link>
+            <h1 className="font-display font-semibold leading-[0.95]">
+              <span className="rise block text-[3.4rem] sm:text-7xl" style={{ animationDelay: "160ms" }}>
+                Farm-fresh pork,
+              </span>
+              <span className="rise block text-[3.4rem] text-gold-2 sm:text-7xl" style={{ animationDelay: "300ms" }}>
+                cut to your taste.
+              </span>
+              <span className="rise mt-3 block font-sans text-base font-normal normal-case leading-relaxed text-ivory/80 sm:text-lg" style={{ animationDelay: "440ms" }}>
+                Premium cuts, family packs, bulk orders and whole pigs — sourced from trusted farms, hand-cut by expert butchers, chilled from farm to your doorstep.
+              </span>
+            </h1>
+            <div className="rise mt-9 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: "580ms" }}>
+              <Link href="/shop" className="btn-gold sheen !px-8 !py-4">Shop Pork</Link>
               <Link href="/whole-pigs" className="btn-light !px-8 !py-4">Buy Whole Pig</Link>
             </div>
+            <Reveal stagger className="mt-7 flex flex-wrap items-center gap-2.5">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold-3/20 px-3.5 py-1.5 text-xs font-semibold text-ivory backdrop-blur-sm">
+                <Stars rating={4.9} size="h-3.5 w-3.5" /> 4.9 from 300+ verified reviews
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-ivory/25 px-3.5 py-1.5 text-xs font-semibold text-ivory/90 backdrop-blur-sm">
+                <Icon name="snow" className="h-3.5 w-3.5 text-gold-2" /> Cold-chain guaranteed
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-ivory/25 px-3.5 py-1.5 text-xs font-semibold text-ivory/90 backdrop-blur-sm">
+                <Icon name="truck" className="h-3.5 w-3.5 text-gold-2" /> Same-day dispatch in Lagos
+              </span>
+            </Reveal>
             <Link href="/wholesale" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-gold-2 hover:text-white">
               Wholesale &amp; bulk orders <Icon name="right" className="h-4 w-4" />
             </Link>
           </div>
         </div>
-        <div className="relative border-t border-ivory/15 bg-forest/80 backdrop-blur">
-          <ul className="container-x grid grid-cols-2 gap-4 py-5 text-sm md:grid-cols-4">
-            {[["scale", "Accurate weights"], ["snow", "Chilled handling"], ["truck", "Reliable delivery"], ["shield", "Secure payments"]].map(([i, t]) => (
-              <li key={t} className="flex items-center gap-3 text-ivory/90"><Icon name={i} className="h-5 w-5 text-gold-2" />{t}</li>
+        <div className="relative z-[2] border-t border-ivory/15 bg-forest/80 backdrop-blur">
+          <Reveal as="ul" stagger className="container-x grid grid-cols-2 gap-5 py-5 text-sm md:grid-cols-4">
+            {[
+              ["scale", "Accurate weights", "Pay only for what you receive"],
+              ["snow", "Chilled handling", "Unbroken cold chain, farm to door"],
+              ["truck", "Reliable delivery", "Lagos, Ibadan & Abuja"],
+              ["shield", "Secure payments", "Paystack, Flutterwave or on delivery"],
+            ].map(([i, t, d]) => (
+              <li key={t} className="flex items-start gap-3 text-ivory/90">
+                <Icon name={i} className="mt-0.5 h-5 w-5 shrink-0 text-gold-2" />
+                <span>
+                  <span className="block font-semibold text-ivory">{t}</span>
+                  <span className="block text-xs text-ivory/60">{d}</span>
+                </span>
+              </li>
             ))}
-          </ul>
+          </Reveal>
         </div>
       </section>
 
       {/* CATEGORIES */}
       <section className="container-x pt-20">
-        <SectionHeading eyebrow="Shop by category" title="Everything pork, beautifully organised" />
-        <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-5">
+        <Reveal>
+          <SectionHeading eyebrow="Shop by category" title="Everything pork, beautifully organised" />
+        </Reveal>
+        <Reveal stagger className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-5">
           {cats.map((c) => (
             <Link key={c.slug} href={c.slug === "whole-pigs" ? "/whole-pigs" : `/category/${c.slug}`} className="group relative aspect-[4/5] overflow-hidden rounded-xl bg-forest">
               <Img src={c.image} alt={c.name} className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105" />
@@ -90,22 +122,25 @@ export default async function HomePage() {
               </div>
             </Link>
           ))}
-        </div>
+        </Reveal>
       </section>
 
       {/* BEST SELLERS */}
       <section className="container-x pt-20">
-        <SectionHeading eyebrow="Best sellers" title="Loved by Tabis customers" action={<Link href="/shop" className="btn-outline btn-sm">View all products</Link>} />
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <Reveal>
+          <SectionHeading eyebrow="Best sellers" title="Loved by Tabis customers" action={<Link href="/shop" className="btn-outline btn-sm">View all products</Link>} />
+        </Reveal>
+        <Reveal stagger className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {best.map((p) => (
             <ProductCard key={p.id} p={p} />
           ))}
-        </div>
+        </Reveal>
       </section>
 
       {/* WHOLE PIGS */}
-      <section className="mt-20 bg-forest text-ivory">
-        <div className="container-x grid items-center gap-10 py-16 lg:grid-cols-2">
+      <section className="relative mt-20 overflow-hidden bg-forest text-ivory">
+        <div className="grain-layer" aria-hidden />
+        <Reveal stagger className="container-x relative z-[2] grid items-center gap-10 py-16 lg:grid-cols-2">
           <div>
             <p className="eyebrow mb-3 !text-gold-2">Whole pigs</p>
             <h2 className="font-display text-5xl font-semibold leading-[1.02] sm:text-6xl">Need more pork? <span className="text-gold-2">Go whole.</span></h2>
@@ -122,13 +157,15 @@ export default async function HomePage() {
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-gold/40">
             <Img src="https://images.pexels.com/photos/29841945/pexels-photo-29841945.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1200" alt="Whole roasted pig" className="h-full w-full object-cover" />
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* WHY TABIS */}
       <section className="container-x pt-20">
-        <SectionHeading eyebrow="Why Tabis?" title="Quality you can trust" center />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <Reveal>
+          <SectionHeading eyebrow="Why Tabis?" title="Quality you can trust" center />
+        </Reveal>
+        <Reveal stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {[
             ["shield", "Quality Pork", "Carefully sourced, inspected pork from healthy, well-raised animals."],
             ["snow", "Fresh Handling", "Proper cold-chain handling from processing to your doorstep."],
@@ -141,13 +178,15 @@ export default async function HomePage() {
               <p className="mt-2 text-sm leading-relaxed text-charcoal/70">{d}</p>
             </div>
           ))}
-        </div>
+        </Reveal>
       </section>
 
       {/* FARM TO TABLE */}
       <section className="container-x pt-20">
-        <SectionHeading eyebrow="From farm to table" title="Source → Quality → Selection → Order → Delivery" sub="Every Tabis order follows the same careful journey, so quality is something you can see and freshness is something you can trust." />
-        <ol className="grid gap-4 md:grid-cols-4">
+        <Reveal>
+          <SectionHeading eyebrow="From farm to table" title="Source → Quality → Selection → Order → Delivery" sub="Every Tabis order follows the same careful journey, so quality is something you can see and freshness is something you can trust." />
+        </Reveal>
+        <Reveal as="ol" stagger className="grid gap-4 md:grid-cols-4">
           {[["Sourcing", "Healthy pigs from trusted farms."], ["Processing", "Hygienic, inspected processing."], ["Packaging", "Weighed, sealed & labelled cold."], ["Delivery", "Chilled to your door."]].map(([t, d], i) => (
             <li key={t} className="relative rounded-xl border border-forest/10 bg-white p-6">
               <span className="font-display text-5xl font-semibold text-gold/50">0{i + 1}</span>
@@ -155,20 +194,20 @@ export default async function HomePage() {
               <p className="mt-1 text-sm text-charcoal/70">{d}</p>
             </li>
           ))}
-        </ol>
+        </Reveal>
         <div className="mt-6"><Link href="/farm" className="text-sm font-semibold uppercase tracking-wider text-forest hover:text-gold">See our full process →</Link></div>
       </section>
 
       {/* BUSINESS */}
       <section className="container-x pt-20">
-        <div className="overflow-hidden rounded-2xl bg-forest text-ivory">
+        <Reveal className="overflow-hidden rounded-2xl bg-forest text-ivory">
           <div className="grid gap-8 p-8 sm:p-12 lg:grid-cols-[1.2fr_1fr] lg:items-center">
             <div>
               <p className="eyebrow mb-3 !text-gold-2">Tabis Business</p>
               <h2 className="font-display text-5xl font-semibold leading-[1.02]">Pork supply built for your business</h2>
               <p className="mt-4 max-w-xl text-ivory/80">Restaurants, hotels, caterers, supermarkets, butchers, event companies and processors — enjoy tiered pricing, consistent quality and a proper quote-to-order workflow.</p>
               <div className="mt-7 flex flex-wrap gap-3">
-                <Link href="/quote" className="btn-gold">Request a Quote</Link>
+                <Link href="/quote" className="btn-gold sheen">Request a Quote</Link>
                 <Link href="/wholesale" className="btn-ghost-light">Learn more</Link>
               </div>
             </div>
@@ -183,13 +222,15 @@ export default async function HomePage() {
               </table>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* PORK GUIDE */}
       <section className="container-x pt-20">
-        <SectionHeading eyebrow="Know your pork" title="Not sure which cut to buy?" action={<Link href="/pork-guide" className="btn-outline btn-sm">Open the pork guide</Link>} />
-        <div className="no-scrollbar -mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-4">
+        <Reveal>
+          <SectionHeading eyebrow="Know your pork" title="Not sure which cut to buy?" action={<Link href="/pork-guide" className="btn-outline btn-sm">Open the pork guide</Link>} />
+        </Reveal>
+        <Reveal stagger className="no-scrollbar -mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-4">
           {CUTS.slice(0, 4).map((c) => (
             <Link key={c.id} href={`/pork-guide#${c.id}`} className="card min-w-[250px] snap-start p-5 transition hover:-translate-y-0.5 sm:min-w-0">
               <h3 className="font-display text-2xl font-semibold text-forest">{c.name}</h3>
@@ -197,13 +238,15 @@ export default async function HomePage() {
               <ul className="mt-2 space-y-1 text-sm text-charcoal/75">{c.bestFor.slice(0, 4).map((b) => <li key={b} className="flex items-center gap-2"><Icon name="check" className="h-3.5 w-3.5 text-forest-2" />{b}</li>)}</ul>
             </Link>
           ))}
-        </div>
+        </Reveal>
       </section>
 
       {/* REVIEWS */}
       <section className="container-x pt-20">
-        <SectionHeading eyebrow="Customer reviews" title="Fresh, well packaged, on time" center />
-        <div className="grid gap-5 md:grid-cols-3">
+        <Reveal>
+          <SectionHeading eyebrow="Customer reviews" title="Fresh, well packaged, on time" center />
+        </Reveal>
+        <Reveal stagger className="grid gap-5 md:grid-cols-3">
           {revs.map(({ r, productName }) => (
             <figure key={r.id} className="card p-6">
               <Stars rating={r.rating} />
@@ -215,13 +258,15 @@ export default async function HomePage() {
               </figcaption>
             </figure>
           ))}
-        </div>
+        </Reveal>
       </section>
 
       {/* BLOG */}
       <section className="container-x pt-20">
-        <SectionHeading eyebrow="Blog & recipes" title="From our kitchen and farm" action={<Link href="/blog" className="btn-outline btn-sm">All articles</Link>} />
-        <div className="grid gap-5 md:grid-cols-3">
+        <Reveal>
+          <SectionHeading eyebrow="Blog & recipes" title="From our kitchen and farm" action={<Link href="/blog" className="btn-outline btn-sm">All articles</Link>} />
+        </Reveal>
+        <Reveal stagger className="grid gap-5 md:grid-cols-3">
           {posts.map((p) => (
             <Link key={p.id} href={`/blog/${p.slug}`} className="card group overflow-hidden">
               <div className="aspect-[16/10] overflow-hidden bg-forest-3"><Img src={p.image} alt={p.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" /></div>
@@ -232,16 +277,16 @@ export default async function HomePage() {
               </div>
             </Link>
           ))}
-        </div>
+        </Reveal>
       </section>
 
       {/* WHATSAPP CTA */}
       <section className="container-x pt-20">
-        <div className="rounded-2xl border border-gold/40 bg-gold-3 p-8 text-center sm:p-12">
+        <Reveal className="rounded-2xl border border-gold/40 bg-gold-3 p-8 text-center sm:p-12">
           <h2 className="font-display text-4xl font-semibold text-forest sm:text-5xl">Large order? Custom cuts? Delivery question?</h2>
           <p className="mx-auto mt-3 max-w-xl text-charcoal/75">Chat with the Tabis team on WhatsApp — we&apos;re happy to help with wholesale, big pigs, custom cuts and quotes.</p>
           <Link href="/contact" className="btn-primary mt-6">Talk to Tabis</Link>
-        </div>
+        </Reveal>
       </section>
     </>
   );

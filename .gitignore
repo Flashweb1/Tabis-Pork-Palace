@@ -23,3 +23,4 @@ yarn-error.log*
 *.pem
 /coverage
 next-env.d.ts
+tsconfig.tsbuildinfo

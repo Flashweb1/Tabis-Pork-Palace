@@ -62,10 +62,10 @@ export async function seedDatabase(opts: { reset?: boolean } = {}) {
 
   // ---------- Settings ----------
   const settingsRows: Record<string, string> = {
-    whatsapp: "2348000000000",
-    phone: "+234 800 000 0000",
+    whatsapp: "2348130666158",
+    phone: "+234 813 066 6158",
     email: "hello@tabispork.com",
-    address: "Tabis Pork Palace, Lagos, Nigeria",
+    address: "House 5, Diamond Estate, Esheri-Igando Road Lagos",
     hours: "Mon–Sat 7:00am – 7:00pm · Sun 10:00am – 4:00pm",
     bank_name: "Zenith Bank",
     bank_account_name: "Tabis Pork Palace Ltd",

@@ -195,9 +195,24 @@ export async function saveAddress(_prev: FormState, fd: FormData): Promise<FormS
   if (!address) return { ok: false, message: "Please enter the address." };
   const makeDefault = bool(fd, "isDefault");
   if (makeDefault) await db.update(s.addresses).set({ isDefault: false }).where(eq(s.addresses.userId, user.id));
-  await db.insert(s.addresses).values({ userId: user.id, label: str(fd, "label") || "Home", address, city: str(fd, "city"), state: str(fd, "state"), phone: str(fd, "phone"), isDefault: makeDefault });
+  const values = { label: str(fd, "label") || "Home", address, city: str(fd, "city"), state: str(fd, "state"), phone: str(fd, "phone"), isDefault: makeDefault };
+  const id = num(fd, "id");
+  if (id > 0) {
+    const updated = await db.update(s.addresses).set(values).where(and(eq(s.addresses.id, id), eq(s.addresses.userId, user.id))).returning({ id: s.addresses.id });
+    if (!updated.length) return { ok: false, message: "Address not found." };
+  } else {
+    await db.insert(s.addresses).values({ userId: user.id, ...values });
+  }
   revalidatePath("/account/addresses");
-  return { ok: true, message: "Address saved." };
+  return { ok: true, message: "Address saved.", redirect: "/account/addresses" };
+}
+
+export async function setDefaultAddress(fd: FormData) {
+  const user = await requireUser("/account/addresses");
+  const id = num(fd, "id");
+  await db.update(s.addresses).set({ isDefault: false }).where(eq(s.addresses.userId, user.id));
+  await db.update(s.addresses).set({ isDefault: true }).where(and(eq(s.addresses.id, id), eq(s.addresses.userId, user.id)));
+  revalidatePath("/account/addresses");
 }
 
 export async function deleteAddress(fd: FormData) {
@@ -230,6 +245,12 @@ export async function changePassword(_prev: FormState, fd: FormData): Promise<Fo
 export async function markNotificationsRead() {
   const user = await requireUser("/account/notifications");
   await db.update(s.notifications).set({ read: true }).where(eq(s.notifications.userId, user.id));
+  revalidatePath("/account/notifications");
+}
+
+export async function markNotificationRead(fd: FormData) {
+  const user = await requireUser("/account/notifications");
+  await db.update(s.notifications).set({ read: true }).where(and(eq(s.notifications.id, num(fd, "id")), eq(s.notifications.userId, user.id)));
   revalidatePath("/account/notifications");
 }
 
