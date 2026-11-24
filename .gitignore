@@ -12,6 +12,7 @@
 # env / secrets
 .env
 .env*.local
+/vercel.env
 
 # logs
 npm-debug.log*
