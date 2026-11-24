@@ -38,10 +38,10 @@ export function LogoMark({ className = "h-10 w-auto", light = false }: { classNa
 export function Logo({ light = false, className = "" }: { light?: boolean; className?: string }) {
   return (
     <span className={`inline-flex items-center gap-3 ${className}`}>
-      <LogoMark className="h-11 w-auto" light={light} />
-      <span className="flex flex-col leading-none">
-        <span className={`font-display text-[1.7rem] font-bold tracking-[0.08em] ${light ? "text-ivory" : "text-forest"}`}>TABIS</span>
-        <span className="mt-1 text-[0.62rem] font-bold tracking-[0.32em] text-gold">PORK PALACE</span>
+      <LogoMark className="h-9 w-auto sm:h-11" light={light} />
+      <span className="flex min-w-0 flex-col leading-none">
+        <span className={`font-display text-[1.3rem] font-bold tracking-[0.08em] sm:text-[1.7rem] ${light ? "text-ivory" : "text-forest"}`}>TABIS</span>
+        <span className="mt-1 text-[0.5rem] font-bold tracking-[0.24em] text-gold sm:text-[0.62rem] sm:tracking-[0.32em]">PORK PALACE</span>
       </span>
     </span>
   );

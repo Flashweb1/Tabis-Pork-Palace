@@ -249,14 +249,14 @@ h3,
   transform: translateX(130%);
 }
 
-/* Hero slide progress (5s autoplay indicator) */
+/* Hero slide progress. Duration is set inline from the slider's DURATION. */
 @keyframes hero-progress {
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }
 }
 .hero-progress {
   transform-origin: left center;
-  animation: hero-progress 5000ms linear forwards;
+  animation: hero-progress 3000ms linear forwards;
 }
 
 /* Film-grain texture for dark sections */

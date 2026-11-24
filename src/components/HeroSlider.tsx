@@ -21,7 +21,7 @@ const CTRL =
   "grid h-9 w-9 place-items-center rounded-full border border-ivory/25 text-ivory/85 transition hover:border-gold-2 hover:text-gold-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-2 focus-visible:ring-offset-2 focus-visible:ring-offset-forest";
 
 /** Time each slide stays on screen before advancing. */
-const DURATION = 5000;
+const DURATION = 3000;
 
 export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
   const count = slides.length;
@@ -32,7 +32,7 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
   const [tabHidden, setTabHidden] = useState(false);
   const [reduced, setReduced] = useState(false);
 
-  // Autoplay bookkeeping: remember how much of the 5s is left so pausing and
+  // Autoplay bookkeeping: remember how much time is left so pausing and
   // resuming neither jumps ahead nor restarts the slide.
   const remaining = useRef(DURATION);
   const startedAt = useRef(0);
@@ -235,7 +235,10 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
                     <span
                       key={index}
                       className="hero-progress absolute inset-0 rounded-full bg-gold-2"
-                      style={{ animationPlayState: paused ? "paused" : "running" }}
+                      style={{
+                        animationDuration: `${DURATION}ms`,
+                        animationPlayState: paused ? "paused" : "running",
+                      }}
                     />
                   )}
                 </button>
