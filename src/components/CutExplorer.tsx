@@ -16,6 +16,15 @@ const ZONES: { id: string; label: string; cut: string; d: string; lx: number; ly
   { id: "feet", label: "Trotters", cut: "feet", d: "M150 240 L190 240 L190 280 L150 280Z M360 240 L400 240 L400 280 L360 280Z", lx: 170, ly: 266 },
 ];
 
+function Meter({ label, v }: { label: string; v: number }) {
+  return (
+    <div>
+      <div className="mb-1 flex justify-between text-xs font-semibold uppercase tracking-wider text-forest/70"><span>{label}</span><span>{v}/5</span></div>
+      <div className="h-2 rounded-full bg-forest/10"><div className="h-2 rounded-full bg-gold" style={{ width: `${v * 20}%` }} /></div>
+    </div>
+  );
+}
+
 export function CutExplorer({ cuts, slugs }: { cuts: Cut[]; slugs: Record<string, string> }) {
   const [id, setId] = useState(cuts[0].id);
   useEffect(() => {
@@ -23,12 +32,6 @@ export function CutExplorer({ cuts, slugs }: { cuts: Cut[]; slugs: Record<string
     if (h && cuts.some((c) => c.id === h)) setId(h);
   }, [cuts]);
   const cut = cuts.find((c) => c.id === id) ?? cuts[0];
-  const Meter = ({ label, v }: { label: string; v: number }) => (
-    <div>
-      <div className="mb-1 flex justify-between text-xs font-semibold uppercase tracking-wider text-forest/70"><span>{label}</span><span>{v}/5</span></div>
-      <div className="h-2 rounded-full bg-forest/10"><div className="h-2 rounded-full bg-gold" style={{ width: `${v * 20}%` }} /></div>
-    </div>
-  );
   return (
     <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr]">
       <div>

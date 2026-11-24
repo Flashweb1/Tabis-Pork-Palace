@@ -3,6 +3,7 @@ import { desc, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { blogPosts, reviews, products } from "@/db/schema";
 import { Icon } from "@/components/Icon";
+import { HeroSlider, type HeroSlide } from "@/components/HeroSlider";
 import { Img } from "@/components/Img";
 import { ProductCard } from "@/components/ProductCard";
 import { Reveal } from "@/components/Reveal";
@@ -12,6 +13,41 @@ import { dateShort, naira } from "@/lib/format";
 import { getAllProducts, getCategories, getTiers, pigRangeLabel } from "@/lib/store";
 import { tierRangeLabel } from "@/lib/pricing";
 import { siteUrl } from "@/lib/site";
+
+const HERO_SLIDES: HeroSlide[] = [
+  {
+    eyebrow: "Tabis Pork Palace · Est. in Lagos",
+    title: "Farm-fresh pork,",
+    accent: "cut to your taste.",
+    body: "Premium cuts, family packs, bulk orders and whole pigs — sourced from trusted farms, hand-cut by expert butchers, chilled from farm to your doorstep.",
+    image: "https://images.pexels.com/photos/5774154/pexels-photo-5774154.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1800",
+    alt: "Fresh premium pork cuts on a butcher's board",
+    primary: { href: "/shop", label: "Shop Pork" },
+    secondary: { href: "/whole-pigs", label: "Buy Whole Pig" },
+  },
+  {
+    eyebrow: "Whole pigs · Celebrations & events",
+    title: "Whole pigs,",
+    accent: "for every celebration.",
+    body: "Choose your weight range and how it's cleaned and cut — 20–100kg, chilled and delivered across Lagos, Ibadan and Abuja.",
+    image: "https://images.pexels.com/photos/29841945/pexels-photo-29841945.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1800",
+    alt: "Whole pig prepared for a celebration",
+    primary: { href: "/whole-pigs", label: "Browse Whole Pigs" },
+    secondary: { href: "/quote", label: "Request a Quote" },
+    note: { href: "/how-it-works", label: "How ordering works" },
+  },
+  {
+    eyebrow: "Wholesale & bulk supply",
+    title: "Built for kitchens,",
+    accent: "priced for volume.",
+    body: "Restaurants, caterers and resellers get tiered pricing from 5kg, a dedicated account manager and scheduled cold-chain delivery.",
+    image: "https://images.pexels.com/photos/31647676/pexels-photo-31647676.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1800",
+    alt: "Butcher preparing wholesale pork cuts",
+    primary: { href: "/quote", label: "Request a Quote" },
+    secondary: { href: "/wholesale", label: "Wholesale Details" },
+    note: { href: "/contact", label: "Talk to our team" },
+  },
+];
 
 export default async function HomePage() {
   const [all, cats, tiers] = await Promise.all([getAllProducts(), getCategories(), getTiers()]);
@@ -46,46 +82,7 @@ export default async function HomePage() {
       />
       {/* HERO */}
       <section className="relative overflow-hidden bg-forest text-ivory">
-        <Img src="https://images.pexels.com/photos/5774154/pexels-photo-5774154.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1800" alt="Fresh premium pork cuts" className="kenburns absolute inset-0 h-full w-full object-cover opacity-40" />
-        <div className="absolute inset-0 bg-gradient-to-r from-forest via-forest/85 to-forest/30" />
-        <div className="absolute inset-0 bg-[radial-gradient(120%_120%_at_18%_18%,transparent_35%,rgba(6,20,13,0.6)_100%)]" />
-        <div className="grain-layer" aria-hidden />
-        <div className="container-x relative z-[2] grid min-h-[560px] items-center py-16 sm:py-24 lg:min-h-[640px]">
-          <div className="max-w-2xl">
-            <p className="eyebrow rise mb-5 !text-gold-2" style={{ animationDelay: "60ms" }}>
-              Tabis Pork Palace · Est. in Lagos
-            </p>
-            <h1 className="font-display font-semibold leading-[0.95]">
-              <span className="rise block text-[3.4rem] sm:text-7xl" style={{ animationDelay: "160ms" }}>
-                Farm-fresh pork,
-              </span>
-              <span className="rise block text-[3.4rem] text-gold-2 sm:text-7xl" style={{ animationDelay: "300ms" }}>
-                cut to your taste.
-              </span>
-              <span className="rise mt-3 block font-sans text-base font-normal normal-case leading-relaxed text-ivory/80 sm:text-lg" style={{ animationDelay: "440ms" }}>
-                Premium cuts, family packs, bulk orders and whole pigs — sourced from trusted farms, hand-cut by expert butchers, chilled from farm to your doorstep.
-              </span>
-            </h1>
-            <div className="rise mt-9 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: "580ms" }}>
-              <Link href="/shop" className="btn-gold sheen !px-8 !py-4">Shop Pork</Link>
-              <Link href="/whole-pigs" className="btn-light !px-8 !py-4">Buy Whole Pig</Link>
-            </div>
-            <Reveal stagger className="mt-7 flex flex-wrap items-center gap-2.5">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold-3/20 px-3.5 py-1.5 text-xs font-semibold text-ivory backdrop-blur-sm">
-                <Stars rating={4.9} size="h-3.5 w-3.5" /> 4.9 from 300+ verified reviews
-              </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-ivory/25 px-3.5 py-1.5 text-xs font-semibold text-ivory/90 backdrop-blur-sm">
-                <Icon name="snow" className="h-3.5 w-3.5 text-gold-2" /> Cold-chain guaranteed
-              </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-ivory/25 px-3.5 py-1.5 text-xs font-semibold text-ivory/90 backdrop-blur-sm">
-                <Icon name="truck" className="h-3.5 w-3.5 text-gold-2" /> Same-day dispatch in Lagos
-              </span>
-            </Reveal>
-            <Link href="/wholesale" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-gold-2 hover:text-white">
-              Wholesale &amp; bulk orders <Icon name="right" className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
+        <HeroSlider slides={HERO_SLIDES} />
         <div className="relative z-[2] border-t border-ivory/15 bg-forest/80 backdrop-blur">
           <Reveal as="ul" stagger className="container-x grid grid-cols-2 gap-5 py-5 text-sm md:grid-cols-4">
             {[

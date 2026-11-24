@@ -14,6 +14,7 @@ const NAV = [
   { href: "/whole-pigs", label: "Whole Pigs" },
   { href: "/wholesale", label: "Wholesale" },
   { href: "/pork-guide", label: "Pork Guide" },
+  { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];

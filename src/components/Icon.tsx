@@ -28,6 +28,9 @@ const P: Record<string, ReactNode> = {
   bell: (<><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" /><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" /></>),
   clipboard: (<><rect width="8" height="4" x="8" y="2" rx="1" /><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /></>),
   chart: (<><path d="M3 3v16a2 2 0 0 0 2 2h16" /><path d="M7 16V9" /><path d="M12 16V5" /><path d="M17 16v-5" /></>),
+  left: <path d="m15 18-6-6 6-6" />,
+  pause: (<><rect x="6" y="4" width="4" height="16" rx="1" /><rect x="14" y="4" width="4" height="16" rx="1" /></>),
+  play: <polygon points="6 3 20 12 6 21 6 3" />,
 };
 
 export function Icon({ name, className = "h-5 w-5", fill = false }: { name: keyof typeof P | string; className?: string; fill?: boolean }) {

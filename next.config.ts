@@ -4,6 +4,9 @@ import type { NextConfig } from "next";
 // (X-Frame-Options is intentionally omitted so the app can still be embedded in preview tools.)
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // PGlite loads its wasm/fs bundle from disk at runtime, so it must not be
+  // bundled by Turbopack (otherwise it fails with ERR_INVALID_ARG_TYPE).
+  serverExternalPackages: ["@electric-sql/pglite"],
   async headers() {
     return [
       {

@@ -30,7 +30,9 @@ export async function createSession(userId: number) {
     sameSite: "lax",
     path: "/",
     expires: expiresAt,
-    secure: process.env.COOKIE_SECURE === "true",
+    // Secure cookies by default in production; COOKIE_SECURE can force it on
+    // (or off, for HTTP-only previews).
+    secure: process.env.COOKIE_SECURE === "true" || process.env.NODE_ENV === "production",
   });
 }
 

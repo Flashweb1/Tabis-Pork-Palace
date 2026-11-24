@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { db } from "@/db";
+import { db, initializeDatabase, isLocalDatabase } from "@/db";
 import { products } from "@/db/schema";
 
 let started: Promise<void> | null = null;
@@ -9,6 +9,7 @@ export function ensureSeeded(): Promise<void> {
   if (!started) {
     started = (async () => {
       try {
+        if (isLocalDatabase) await initializeDatabase();
         const r = await db.select({ n: sql<number>`count(*)::int` }).from(products);
         if (r[0].n === 0) {
           const { seedDatabase } = await import("@/db/seed-data");
