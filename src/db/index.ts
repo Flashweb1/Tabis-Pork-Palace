@@ -2,7 +2,8 @@ import { PGlite } from "@electric-sql/pglite";
 import { drizzle as drizzlePglite } from "drizzle-orm/pglite";
 import { migrate } from "drizzle-orm/pglite/migrator";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { Pool } from "pg";
+import { Pool, type PoolConfig } from "pg";
+import { SUPABASE_ROOT_CA_2021 } from "@/db/supabase-ca";
 
 const databaseUrl = process.env.DATABASE_URL;
 
@@ -37,12 +38,25 @@ if (isLocalDatabase) {
   })();
 }
 
+/**
+ * Supabase's chain is signed by a private CA, which Node does not trust. pg 8.20
+ * treats sslmode=require as full verification, so pass the pinned root CA and
+ * remove sslmode from the URL (it would override the explicit ssl config).
+ */
+function remotePoolConfig(url: string): PoolConfig {
+  const parsed = new URL(url);
+  if (parsed.hostname.endsWith(".supabase.com")) {
+    parsed.searchParams.delete("sslmode");
+    parsed.searchParams.delete("uselibpqcompat");
+    return { connectionString: parsed.toString(), ssl: { ca: SUPABASE_ROOT_CA_2021 } };
+  }
+  return { connectionString: url };
+}
+
 const remotePool = isLocalDatabase
   ? undefined
   : (globalForDb.__arenaNextJsPostgresqlPool ??
-    new Pool({
-      connectionString: databaseUrl,
-    }));
+    new Pool(remotePoolConfig(databaseUrl)));
 
 if (!isLocalDatabase && process.env.NODE_ENV !== "production") {
   globalForDb.__arenaNextJsPostgresqlPool = remotePool;
